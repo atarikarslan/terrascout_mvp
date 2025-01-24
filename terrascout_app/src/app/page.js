@@ -1,8 +1,8 @@
 // src/app/page.js
 'use client'
 import { useState } from 'react'
-import MapView from '../components/MapView'
-import AnalysisPanel from '../components/AnalysisPanel'
+import MapView from '/Users/tarikarslan/terrascout_mvp/terrascout_app/src/app/components/MapView.js';
+import AnalysisPanel from '/Users/tarikarslan/terrascout_mvp/terrascout_app/src/app/components/AnalysisPanel.js';
 
 export default function Home() {
   const [selectedLocation, setSelectedLocation] = useState(null);
