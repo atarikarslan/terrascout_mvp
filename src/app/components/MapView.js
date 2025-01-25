@@ -1,23 +1,35 @@
 // src/components/MapView.js
-'use client'
-import { useEffect, useRef } from 'react'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
-export default function MapView({ onLocationSelect }) {
-  const mapRef = useRef(null);
-
-  useEffect(() => {
-    // Map initialization will go here
-    // We'll add this in the next step
-  }, []);
+const MapView = ({ selectedLocation, onLocationSelect, sampleLocations }) => {
+  const center = [52.52, 13.405]; // Berlin coordinates
 
   return (
-    <div className="bg-gray-100 rounded-lg p-4">
-      <div 
-        ref={mapRef}
-        className="w-full h-[600px] rounded-lg"
-      >
-        {/* Map will render here */}
-      </div>
-    </div>
-  )
-}
+    <MapContainer center={center} zoom={13} className="h-[600px] rounded-lg">
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+
+      {/* Render sample location markers */}
+      {sampleLocations.map((location) => (
+        <Marker
+          key={location.id}
+          position={[location.lat, location.lng]}
+          eventHandlers={{
+            click: () => onLocationSelect(location),
+          }}
+        >
+          <Popup>
+            <h3>{location.name}</h3>
+            <p>Foot Traffic: {location.footTraffic}</p>
+            <p>Competitors: {location.competitors}</p>
+            <p>Demographics: {location.demographics}</p>
+          </Popup>
+        </Marker>
+      ))}
+    </MapContainer>
+  );
+};
+
+export default MapView;
